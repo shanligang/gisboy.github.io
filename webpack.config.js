@@ -1,18 +1,21 @@
-const path = require('path');
-const { WebPlugin } = require('web-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const path = require("path");
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require("webpack");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HOST = process.env.HOST || "127.0.0.1";
+const PORT = process.env.PORT || "3003";
 
 module.exports = {
   output: {
-    publicPath: '',
-    filename: '[name].js',
+    path: path.resolve(__dirname, '../dist'),
+    publicPath: "/",
+    filename: "[name].js"
   },
   resolve: {
     // 加快搜索速度
-    modules: [path.resolve(__dirname, 'node_modules')],
+    modules: [path.resolve(__dirname, "node_modules")],
     // es tree-shaking
-    mainFields: ['jsnext:main', 'browser', 'main'],
+    mainFields: ["jsnext:main", "browser", "main"]
   },
   module: {
     rules: [
@@ -20,37 +23,50 @@ module.exports = {
         test: /\.scss$/,
         // 提取出css
         loaders: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
+          fallback: "style-loader",
+          use: ["css-loader", "sass-loader"]
         }),
-        include: path.resolve(__dirname, 'src')
+        include: path.resolve(__dirname, "src")
       },
       {
         test: /\.css$/,
         // 提取出css
         loaders: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader'],
-        }),
+          fallback: "style-loader",
+          use: ["css-loader"]
+        })
       },
       {
         test: /\.(gif|png|jpe?g|eot|woff|ttf|svg|pdf)$/,
-        loader: 'base64-inline-loader',
-      },
+        loader: "base64-inline-loader"
+      }
     ]
   },
   entry: {
-    main: './src/main.js',
+    main: "./src/main.js"
+  },
+  devServer: {
+    clientLogLevel: "warning",
+    historyApiFallback: true,
+    overlay: true,
+    host: HOST,
+    port: PORT,
+    compress: true,
+    open: true,
+    publicPath: "/"
   },
   plugins: [
-    new WebPlugin({
-      template: './src/index.html',
-      filename: 'index.html',
-    }),
     new ExtractTextPlugin({
-      filename: '[name].css',
-      allChunks: true,
+      filename: "[name].css"
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin(),
+    new HtmlWebpackPlugin({
+      filename: "index.html",
+      template: "./src/index.html",
+      chunksSortMode: "dependency",
+      inject: true // 使用自动插入JS脚本，默认为插入到body中，inject值为true
+    })
   ],
-  devtool: 'source-map',
+  devtool: "source-map"
 };

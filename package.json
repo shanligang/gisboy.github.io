@@ -1,11 +1,10 @@
 {
   "scripts": {
-    "dev": "webpack-dev-server --open --hot",
+    "dev": "webpack-dev-server --inline --progress --config webpack.config.js",
     "pub": "webpack --config webpack-dist.config.js"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",
-    "chrome-finder": "^1.0.1",
     "clean-webpack-plugin": "^0.1.19",
     "compass-mixins": "^0.12.10",
     "cross-env": "^5.1.4",
@@ -13,12 +12,14 @@
     "end-webpack-plugin": "^1.0.0",
     "extract-text-webpack-plugin": "^3.0.0",
     "gh-pages": "^1.0.0",
+    "html-webpack-plugin": "^3.1.0",
     "node-sass": "^4.5.3",
+    "phantom-html2pdf": "^4.0.1",
     "postcss-loader": "^2.0.6",
     "sass-loader": "^6.0.5",
     "style-loader": "^0.18.0",
-    "web-webpack-plugin": "^1.9.3",
+    "web-webpack-plugin": "^1.10.2",
     "webpack": "^3.5.5",
-    "webpack-dev-server": "^2.7.1"
+    "webpack-dev-server": "2.11.2"
   }
 }
