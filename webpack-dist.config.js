@@ -8,6 +8,7 @@ const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const EndWebpackPlugin = require('end-webpack-plugin');
 const { WebPlugin } = require('web-webpack-plugin');
 const ghpages = require('gh-pages');
+const CleanWebpackPlugin = require("clean-webpack-plugin");
 
 function publishGhPages() {
   return new Promise((resolve, reject) => {
@@ -94,6 +95,9 @@ module.exports = {
       filename: '[name]_[contenthash:8].css',
       allChunks: true,
     }),
+    new CleanWebpackPlugin(['.public'], {
+      root: path.resolve(__dirname)
+    }),
     new EndWebpackPlugin(async () => {
       // 自定义域名
       // fs.writeFileSync(path.resolve(outputPath, 'CNAME'), 'resume.wuhaolin.cn');
@@ -103,7 +107,7 @@ module.exports = {
       // 调用 Chrome 渲染出 PDF 文件
       const chromePath = findChrome();
       spawnSync(chromePath, ['--headless', '--disable-gpu', `--print-to-pdf=${path.resolve(outputPath, 'resume.pdf')}`,
-        'https://shanligang.github.io/resume/' // 这里注意改成你的在线简历的网站
+        'https://shanligang.github.io/resume' // 这里注意改成你的在线简历的网站
       ]);
 
       // 重新发布到 ghpages

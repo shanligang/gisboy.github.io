@@ -6,6 +6,7 @@
   "devDependencies": {
     "autoprefixer": "^7.1.2",
     "chrome-finder": "^1.0.1",
+    "clean-webpack-plugin": "^0.1.19",
     "compass-mixins": "^0.12.10",
     "cross-env": "^5.1.4",
     "css-loader": "^0.28.5",
