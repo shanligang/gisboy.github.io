@@ -285,7 +285,7 @@ a {
     .item-time {
       display: inline-block;
       float: left;
-      width: 25%;
+      // width: 25%;
       @media screen and (max-width: 720px) {
         width: 100%;
         margin-bottom: 5px;

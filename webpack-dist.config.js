@@ -12,7 +12,7 @@ const CleanWebpackPlugin = require("clean-webpack-plugin");
 const pdf = require("./buildpdf/phantom-html2pdf");
 const HOST = process.env.HOST || "127.0.0.1";
 const PORT = process.env.PORT || "3003";
-let { spawn } = require("child_process");
+let childProcess = require("child_process");
 
 const outputPath = path.resolve(__dirname, "dist");
 function publishGhPages() {
@@ -108,9 +108,7 @@ module.exports = {
     new EndWebpackPlugin(async () => {
       // 自定义域名 转发 CNAME
       // fs.writeFileSync(path.resolve(outputPath, 'CNAME'), 'resume.wuhaolin.cn');
-      //
-
-      let temppage = spawn("webpack-dev-server", ["--config=webpack.config.js"]);
+      let temppage = childProcess.exec("webpack-dev-server --config=webpack.config.js");
       pdf
         .convert({
           pageAddr: HOST + ":" + PORT,
