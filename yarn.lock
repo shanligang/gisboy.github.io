@@ -220,7 +220,7 @@ async-foreach@^0.1.3:
   version "0.1.3"
   resolved "http://zjgis.cn:8235/async-foreach/-/async-foreach-0.1.3.tgz#36121f845c0578172de419a97dbeb1d16ec34542"
 
-async@2.6.0, async@^2.1.2, async@^2.4.1, async@latest:
+async@2.6.0, async@^2.1.2, async@^2.4.1:
   version "2.6.0"
   resolved "http://zjgis.cn:8235/async/-/async-2.6.0.tgz#61a29abb6fcc026fea77e56d1c6ec53a795951f4"
   dependencies:
@@ -332,7 +332,7 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-bluebird@^3.4.6, bluebird@^3.5.1:
+bluebird@^3.5.1:
   version "3.5.1"
   resolved "http://zjgis.cn:8235/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
 
@@ -1115,7 +1115,7 @@ debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.6, debug@^2.6.8:
   dependencies:
     ms "2.0.0"
 
-debug@^3.1.0, debug@latest:
+debug@^3.1.0:
   version "3.1.0"
   resolved "http://zjgis.cn:8235/debug/-/debug-3.1.0.tgz#5bb5a0672628b64149566ba16819e61518c67261"
   dependencies:
@@ -3422,7 +3422,7 @@ os-locale@^2.0.0:
     lcid "^1.0.0"
     mem "^1.1.0"
 
-os-tmpdir@^1.0.0, os-tmpdir@~1.0.2:
+os-tmpdir@^1.0.0:
   version "1.0.2"
   resolved "http://zjgis.cn:8235/os-tmpdir/-/os-tmpdir-1.0.2.tgz#bbe67406c79aa85c5cfec766fe5734555dfa1274"
 
@@ -3584,17 +3584,7 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "http://zjgis.cn:8235/performance-now/-/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
 
-phantom-html2pdf@^4.0.1:
-  version "4.0.1"
-  resolved "http://zjgis.cn:8235/phantom-html2pdf/-/phantom-html2pdf-4.0.1.tgz#20f43e01f5ce1fad519a70877826ed29f5cb0b94"
-  dependencies:
-    async latest
-    bluebird "^3.4.6"
-    debug latest
-    phantomjs-prebuilt latest
-    tmp latest
-
-phantomjs-prebuilt@latest:
+phantomjs-prebuilt@^2.1.16:
   version "2.1.16"
   resolved "http://zjgis.cn:8235/phantomjs-prebuilt/-/phantomjs-prebuilt-2.1.16.tgz#efd212a4a3966d3647684ea8ba788549be2aefef"
   dependencies:
@@ -4939,12 +4929,6 @@ timers-browserify@^2.0.4:
   resolved "http://zjgis.cn:8235/timers-browserify/-/timers-browserify-2.0.6.tgz#241e76927d9ca05f4d959819022f5b3664b64bae"
   dependencies:
     setimmediate "^1.0.4"
-
-tmp@latest:
-  version "0.0.33"
-  resolved "http://zjgis.cn:8235/tmp/-/tmp-0.0.33.tgz#6d34335889768d21b2bcda0aa277ced3b1bfadf9"
-  dependencies:
-    os-tmpdir "~1.0.2"
 
 to-arraybuffer@^1.0.0:
   version "1.0.1"

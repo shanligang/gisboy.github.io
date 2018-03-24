@@ -9,7 +9,10 @@ const EndWebpackPlugin = require("end-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ghpages = require("gh-pages");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
-const pdf = require("phantom-html2pdf");
+const pdf = require("./buildpdf/phantom-html2pdf");
+const HOST = process.env.HOST || "127.0.0.1";
+const PORT = process.env.PORT || "3003";
+let { spawn } = require("child_process");
 
 const outputPath = path.resolve(__dirname, "dist");
 function publishGhPages() {
@@ -92,7 +95,8 @@ module.exports = {
       filename: "index.html",
       template: "./src/index.html",
       chunksSortMode: "dependency",
-      inject: true // 使用自动插入JS脚本，默认为插入到body中，inject值为true
+      inject: true,
+      minify: false
     }),
     new ExtractTextPlugin({
       filename: "[name].css",
@@ -104,23 +108,27 @@ module.exports = {
     new EndWebpackPlugin(async () => {
       // 自定义域名 转发 CNAME
       // fs.writeFileSync(path.resolve(outputPath, 'CNAME'), 'resume.wuhaolin.cn');
+      //
 
-      pdf.convert(
-        {
-          html: "dist/index.html",
-          css: "dist/main.css",
+      let temppage = spawn("webpack-dev-server", ["--config=webpack.config.js"]);
+      pdf
+        .convert({
+          pageAddr: HOST + ":" + PORT,
+          pdfPath: path.resolve(__dirname, "dist/resume.pdf"),
           paperSize: { format: "A4", orientation: "portrait", border: "0cm" }
-        },
-        function(err, result) {
-          result.toBuffer(function(returnedBuffer) {});
-          var stream = result.toStream();
-          var tmpPath = result.getTmpPath();
-          result.toFile("./dist/resume.pdf", async function() {
-            // 发布到 ghpages
-            // await publishGhPages();
-          });
-        }
-      );
+        })
+        .then(async function(result) {
+          if (result.success) {
+            await publishGhPages();
+            // childProcess.disconnect();
+            // process.kill(temppage.pid);
+            process.exit(0);
+          }
+        })
+        .catch(err => {
+          console.error(err);
+          process.exit(1);
+        });
     })
   ]
 };
