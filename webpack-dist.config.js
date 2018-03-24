@@ -108,7 +108,12 @@ module.exports = {
     new EndWebpackPlugin(async () => {
       // 自定义域名 转发 CNAME
       // fs.writeFileSync(path.resolve(outputPath, 'CNAME'), 'resume.wuhaolin.cn');
-      let temppage = childProcess.exec("webpack-dev-server --config=webpack.config.js");
+      let temppage = childProcess.spawn("cmd.exe", ["/s", "/c", "webpack-dev-server --config=webpack.config.js"], {
+        cwd: null,
+        env: null,
+        windowsVerbatimArguments: true
+      });
+
       pdf
         .convert({
           pageAddr: HOST + ":" + PORT,
@@ -120,7 +125,8 @@ module.exports = {
             await publishGhPages();
             // childProcess.disconnect();
             // process.kill(temppage.pid);
-            process.exit(0);
+            process.kill(temppage.pid);
+            // process.exit(0);
           }
         })
         .catch(err => {
